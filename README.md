@@ -22,13 +22,46 @@ All the device intelligence signals will be available in the Fraud API response,
 To configure the JavaScript module, you need to create a config object and call the seon.getSession(config) function. None of the parameters are required.
 
 
-| Parameter  | Description | Default value | Note |
-| ------------- | ------------- | ------------- | ------------- |
-| fieldTimeoutMs  | Global timeout in milliseconds || Rely on this option, rather than wrapping the 'getSession' call in a timeout, because this way a partial result is still generated. |
-| Content Cell  | Content Cell  | | |
+| Parameter  | Subparameter if an object | Description | Default value | Note |
+| ------------- | ------------- | ------------- | ------------- | ------------- |
+| fieldTimeoutMs  || Global timeout in milliseconds || Rely on this option, rather than wrapping the 'getSession' call in a timeout, because this way a partial result is still generated. |
+| dnsResolverDomain || The potential values: `seondfresolver.com`, `getdeviceinfresolver.com`, `seonintelligenceresolver.com` | *Can potentially change with minor versions* | Only set explicitly if potential changes are undesirable for you, please note that if your site uses CSP headers, then you must set a `connect-src` directive to allow requests to this domain and all subdomains  |
+| geolocation  | | Geolocation configuration object | *Won't be collected by default* |  *Details below* |
+||enabled|Shows whether geolocation is enabled or not.|`false`||
+||highAccuracy| Enables high accuracy for the Geolocation API. It might slightly increase the fingerprinting time.||This affects how the built in browser API is used|
+||canPrompt|Controls whether the SDK can generate a geolocation permission prompt in the browser.|`false`|This is required for proper functionality in Safari|
+||maxAgeSeconds|This option controls the maximum age in seconds of a cached position that is acceptable to return.||If set to 0, it means that the device cannot use a cached position and must attempt to retrieve the real current position.|
+||timeoutMs|Timeout for the Geolocation API to return the position of the device.|||
+|referrer||Configures the `referrer` field in the resposne||*Details below*|
+||maxLength|Maximum length of the URL|||
+||searchParams|Whether to include search parameters of the URL.|||
+|region||Closest supported region of your user base|`eu`|Currently only Europe is supported|
+|silentMode||Stops the SDK to trigger warnings & errors on the DevTools console.|`true`|Turning this off will allow the SDK to enable additional features.|
+|throwOn||List of possible causes for the SDK to throw an error|`options`|By default the SDK only throws an error for an invalid 'options' object, but otherwise always runs to completion.|
+|windowLocation||Configures the `windowLocation` field in the resposne||*Details below*|
+||maxLength|Maximum length of the URL|||
+||searchParams|Whether to include search parameters of the URL.|||
 
 #### Example configuration
 ```
+// On page load:
+seon.init();
+
+const config = {
+  geolocation: {
+   canPrompt: false,
+  },
+  networkTimeoutMs: 2000,
+  fieldTimeoutMs: 2000,
+  region: 'eu',
+  silentMode: true,
+};
+```
+
+#### Example Usage
+```
+const session = await seon.getSession(config);
+// 'session' variable holds the encrypted device fingerprint that should be sent to SEON
 ```
 
 ##  Behavioral features
@@ -73,7 +106,7 @@ SEON JavaScript library collects device information and prepares an encrypted pa
 
 ## Common issues
 + The `session` is provided in the Fraud API request, but the `device_details` is null in the response and there is no device information on the Transaction details page. This means the encrypted payload is corrupted. Please look into your integration and check again.
-+ If you use CSP (Content Security Policy) headers on your site, you must allow the following domains in connect-src directive for full functionality based on your host configuration.
++ If you use CSP (Content Security Policy) headers on your site, you must allow the following domains in `connect-src` directive for full functionality based on your host configuration.
 Default: `*.seondnsresolve.com` 
   + Alternatives:
     + seondf.com: `*.seondfresolver.com`
@@ -83,3 +116,27 @@ Default: `*.seondnsresolve.com`
 
 # Changelog
 ## 6.0.0
+### Important Integration changes
+
++ #### Starting from v6 there is a change in [SEON’s API Policy](https://docs.seon.io/api-reference/api-policy). From now on SEON might introduce new fields in the SDK with minor versions. We advise you to integrate in a way that addition of new fields is handled gracefully.
+
++ #### The `brower_hash` field is calculated differently, resulting in different values for a given device. This means these values are going to break between versions.
+
++ #### `seon.getBase64Session()` has been renamed to `seon.getSession()`
+
++ #### For additional details on the changes of the integration and a comparison to the v5 open the [LINK NEEDED v5 to v6 migration guide]()
+
+### New features and improvements
++ Behavioral Biometrics features
++ Suspicious Flags
++ New datapoints and more robust fingerprinting
++ Smaller payload size
++ Improved screen and window resolution fields
++ API spoofing detection
+
+### Response field changes
++ Numerous new fields were added, and some were changed, details in the migration guide. 
+
+### Other
+
+- Internal changes to prepare for upcoming features and improvements like Remote Control Detection
