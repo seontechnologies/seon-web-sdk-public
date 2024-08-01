@@ -29,11 +29,23 @@ You can use the following script source URLs (`[source_url]`):
 + https://cdn.seonintelligence.com/js/v6/agent.umd.js
 
 > [!Note]
-> Without using the `seon.init()` on page load you will still receive valid device intelligence signals with most of the functions but it will not contain the behavioral signals. Additionally, the bot detection and browser hash may be less precise.
+> Without using the `init()` on page load you will still receive valid device intelligence signals with most of the functions but it will not contain the behavioral signals. Additionally, the bot detection and browser hash may be less precise.
 
 
 > [!TIP]
 > Fraud API documentation can be found [here](https://docs.seon.io/api-reference/fraud-api).
+
+#### NPM integration
+Alternatively you integrate the SDK through [NPM](https://www.npmjs.com/package/@seontechnologies/seon-javascript-sdk)
+
+> [!WARNING]
+> With this method you will have to keep the package updated yourself to include our latest features and bugfixes.
+
+```sh
+npm install @seontechnologies/seon-javascript-sdk
+# or
+yarn add @seontechnologies/seon-javascript-sdk
+```
 
 ## Configuration
 
@@ -46,7 +58,7 @@ To configure the JavaScript module, you need to create a config object and call 
 ||targets|QuerySelector string that selects the targets for which the behavior biometrics should be enabled|`undefined`|If left undefined, it will track behavior on the whole page. To disable this feature, specify an empty string|
 ||formFilloutDurationTargetId|Selects the form by its element ID to measure the fillout time. Only the first matching element is considered|`undefined`|If left undefined, this datapoint won't be available|
 | dnsResolverDomain || Other potential values: `seondfresolver.com`, `getdeviceinfresolver.com`, `seonintelligenceresolver.com` | *Can potentially change with minor versions!* Current default: `seondnsresolve.com` | Only set explicitly if potential changes are undesirable for you, please note that if your site uses CSP headers, then you must set a `connect-src` directive to allow requests to this domain and all subdomains  |
-| fieldTimeoutMs  || Global timeout in milliseconds |`5000`| Rely on this option, rather than wrapping the 'getSession' call in a timeout, because this way a partial result is still generated. Recommended minimum is 2000|
+| fieldTimeoutMs  || Global timeout in milliseconds |`5000`| Rely on this option, rather than wrapping the 'getSession()' call in a timeout, because this way a partial result is still generated. Recommended minimum is 2000|
 | geolocation  | | Geolocation configuration object | *Won't be collected by default* |  *Details below* |
 ||enabled|Shows whether geolocation is enabled or not.|`false`||
 ||highAccuracy| Enables high accuracy for the Geolocation API. It might slightly increase the fingerprinting time.|`true`|This affects how the built in browser API is used|
@@ -95,7 +107,7 @@ const session = await seon.getSession(config);
 
 ##  Behavioral features
 
-Calling the `seon.init()` method will enable behavioral analysis. The user behavior collection is started on the `seon.init()` call and ends when `seon.getSession()` is called (behavioral data will be automatically included in the generated session string). Thus the recommended integration pattern is calling `init` on the form load, and calling `getSession` on form submit to analyze user behavior during a form fillout. 
+Calling the `init()` method will enable behavioral analysis. The user behavior collection is started on the `init()` call and ends when the `getSession()` is called (behavioral data will be automatically included in the generated session string). Thus the recommended integration pattern is calling `init()` on the form load, and calling `getSession()` on form submit to analyze user behavior during a form fillout. 
 Suspicious behavior is flagged in the `suspicious_flags` response field, which can contain the following values:
 + suspicious_keypress_characteristics
 + suspicious_mouse_movement
@@ -103,7 +115,7 @@ Suspicious behavior is flagged in the `suspicious_flags` response field, which c
 + paste_used
 + autofill_used
 
-By default, user interaction is analyzed on the whole page. If you want to target specific input fields or forms for behavior analysis, you can customize it using the `behavioralDataCollection` init configuration option:
+By default, user interaction is analyzed on the whole page. If you want to target specific input fields or forms for behavior analysis, you can customize it using the `behavioralDataCollection` `init()` configuration option:
 ```ts
 // On load
 seon.init({
@@ -117,7 +129,7 @@ seon.init({
 await seon.getSession();
 ```
 
-The targeted elements MUST exist at the time of the `init` call. Elements that match the selector, but added to the DOM after the `init` call will NOT be part of the evaluation.
+The targeted elements MUST exist at the time of the `init()` call. Elements that match the selector, but added to the DOM after the `init()` call will NOT be part of the evaluation.
 
 To disable behavioral data collection by the SDK altogether, you must specify an empty string for the `targets` option:
 
@@ -167,5 +179,4 @@ Default: `*.seondnsresolve.com`
 + Numerous new fields were added, and some were changed, details in the migration guide. 
 
 ### Other
-
-- Internal changes to prepare for upcoming features and improvements like Remote Control Detection
++ Internal changes to prepare for upcoming features and improvements like Remote Control Detection
