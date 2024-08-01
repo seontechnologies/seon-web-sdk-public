@@ -10,8 +10,26 @@ function on page load to get more data points for bot detection, behavioral anal
 
 All the device intelligence signals will be available in the Fraud API response, and accessible on the Admin Panel of the Transactions Details page.
 
+#### Example Integration
+```html
+<html>
+  <head>
+    ...
+    <script src="[source_url]"></script>
+  </head>
+  <body>
+    ...
+  </body>
+</html>
+```
+
+You can use the following script source URLs (`[source_url]`):
++ https://cdn.seondf.com/js/v6/agent.umd.js 
++ https://cdn.deviceinf.com/js/v6/agent.umd.js 
++ https://cdn.seonintelligence.com/js/v6/agent.umd.js
+
 > [!Note]
-> Without using the seon.init() on page load you will still receive valid device intelligence signals with most of the functions but it will not contain the behavioral signals. Additionally, the bot detection and browser hash may be less precise.
+> Without using the `seon.init()` on page load you will still receive valid device intelligence signals with most of the functions but it will not contain the behavioral signals. Additionally, the bot detection and browser hash may be less precise.
 
 
 > [!TIP]
