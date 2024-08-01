@@ -10,8 +10,26 @@ function on page load to get more data points for bot detection, behavioral anal
 
 All the device intelligence signals will be available in the Fraud API response, and accessible on the Admin Panel of the Transactions Details page.
 
+#### Example Integration
+```html
+<html>
+  <head>
+    ...
+    <script src="[source_url]"></script>
+  </head>
+  <body>
+    ...
+  </body>
+</html>
+```
+
+You can use the following script source URLs (`[source_url]`):
++ https://cdn.seondf.com/js/v6/agent.umd.js 
++ https://cdn.deviceinf.com/js/v6/agent.umd.js 
++ https://cdn.seonintelligence.com/js/v6/agent.umd.js
+
 > [!Note]
-> Without using the seon.init() on page load you will still receive valid device intelligence signals with most of the functions but it will not contain the behavioral signals. Additionally, the bot detection and browser hash may be less precise.
+> Without using the `seon.init()` on page load you will still receive valid device intelligence signals with most of the functions but it will not contain the behavioral signals. Additionally, the bot detection and browser hash may be less precise.
 
 
 > [!TIP]
@@ -23,27 +41,38 @@ To configure the JavaScript module, you need to create a config object and call 
 
 
 | Parameter  | Subparameter if an object | Description | Default value | Note |
-| ------------- | ------------- | ------------- | ------------- | ------------- |
-| fieldTimeoutMs  || Global timeout in milliseconds || Rely on this option, rather than wrapping the 'getSession' call in a timeout, because this way a partial result is still generated. |
-| dnsResolverDomain || The potential values: `seondfresolver.com`, `getdeviceinfresolver.com`, `seonintelligenceresolver.com` | *Can potentially change with minor versions* | Only set explicitly if potential changes are undesirable for you, please note that if your site uses CSP headers, then you must set a `connect-src` directive to allow requests to this domain and all subdomains  |
+| ------------- | ------------- | ------------- | ------------- | ----------------------------- |
+|behavioralDataCollection||Settings for the behavioral biometrics data collection||*Details below*|
+||targets|QuerySelector string that selects the targets for which the behavior biometrics should be enabled|`undefined`|If left undefined, it will track behavior on the whole page. To disable this feature, specify an empty string|
+||formFilloutDurationTargetId|Selects the form by its element ID to measure the fillout time. Only the first matching element is considered|`undefined`|If left undefined, this datapoint won't be available|
+| dnsResolverDomain || Other potential values: `seondfresolver.com`, `getdeviceinfresolver.com`, `seonintelligenceresolver.com` | *Can potentially change with minor versions!* Current default: `seondnsresolve.com` | Only set explicitly if potential changes are undesirable for you, please note that if your site uses CSP headers, then you must set a `connect-src` directive to allow requests to this domain and all subdomains  |
+| fieldTimeoutMs  || Global timeout in milliseconds |`5000`| Rely on this option, rather than wrapping the 'getSession' call in a timeout, because this way a partial result is still generated. Recommended minimum is 2000|
 | geolocation  | | Geolocation configuration object | *Won't be collected by default* |  *Details below* |
 ||enabled|Shows whether geolocation is enabled or not.|`false`||
-||highAccuracy| Enables high accuracy for the Geolocation API. It might slightly increase the fingerprinting time.||This affects how the built in browser API is used|
-||canPrompt|Controls whether the SDK can generate a geolocation permission prompt in the browser.|`false`|This is required for proper functionality in Safari|
-||maxAgeSeconds|This option controls the maximum age in seconds of a cached position that is acceptable to return.||If set to 0, it means that the device cannot use a cached position and must attempt to retrieve the real current position.|
-||timeoutMs|Timeout for the Geolocation API to return the position of the device.|||
+||highAccuracy| Enables high accuracy for the Geolocation API. It might slightly increase the fingerprinting time.|`true`|This affects how the built in browser API is used|
+||canPrompt|Controls whether the SDK can generate a geolocation permission prompt in the browser|`false`|This is required for proper functionality in Safari|
+||maxAgeSeconds|This option controls the maximum age in seconds of a cached position that is acceptable to return.|`0`|If set to 0, it means that the device cannot use a cached position and must attempt to retrieve the real current position|
+||timeoutMs|Timeout for the Geolocation API to return the position of the device|`1000`|This timeout only works if 'canPrompt' is enabled. Also this option can be set to `Infinity`|
+|networkTimeoutMs||Timeout for the network call in milliseconds|`2000`|For the most accurate results we utilize network requests to our services. This sets the maximum time that the SDK will wait for the response of these|
 |referrer||Configures the `referrer` field in the resposne||*Details below*|
-||maxLength|Maximum length of the URL|||
-||searchParams|Whether to include search parameters of the URL.|||
+||maxLength|Maximum length of the URL|`128`|Allowed range: 0-1024|
+||searchParams|Whether to include search parameters of the URL|`false`||
 |region||Closest supported region of your user base|`eu`|Currently only Europe is supported|
 |silentMode||Stops the SDK to trigger warnings & errors on the DevTools console.|`true`|Turning this off will allow the SDK to enable additional features.|
-|throwOn||List of possible causes for the SDK to throw an error|`options`|By default the SDK only throws an error for an invalid 'options' object, but otherwise always runs to completion.|
+|throwOn||List of possible causes for the SDK to throw an error|`options`|By default the SDK only throws an error for an invalid 'options' object, but otherwise always runs to completion. Possible value: `geolocationPermissionDenied`|
 |windowLocation||Configures the `windowLocation` field in the resposne||*Details below*|
-||maxLength|Maximum length of the URL|||
-||searchParams|Whether to include search parameters of the URL.|||
+||maxLength|Maximum length of the URL|`128`| Allowed range: 0-1024|
+||searchParams|Whether to include search parameters of the URL|`false`||
+
+> [!IMPORTANT]
+> The `fieldTimeoutMs` is the global timeout for the fingerprinting, however this is not a hard limit, setting this value to a very low value (e.g. 100 ms) will probably still result in response times greater than the defined value because some operations must always complete for a valid result. 
+
+#### Synergy between fieldTimeoutMs and other timeout parameters
++ Setting 'geolocation.canPrompt' to true and 'geolocation.timeout' will always force the SDK to wait for the user to either grant or deny the permission prompt (if given). Thus in this case the fingerprinting runtime will depend on the geolocation collection except when it finishes faster than the defined 'fieldTimeoutMs'
++ If the 'networkTimeoutMs' is greater than this option, and the network request is still pending when the defined timeout occurs, then the 'networkTimeoutMs' will be honored and the network request will still be awaited (until 'networkTimeoutMs').
 
 #### Example configuration
-```
+```ts
 // On page load:
 seon.init();
 
@@ -59,7 +88,7 @@ const config = {
 ```
 
 #### Example Usage
-```
+```ts
 const session = await seon.getSession(config);
 // 'session' variable holds the encrypted device fingerprint that should be sent to SEON
 ```
@@ -75,7 +104,7 @@ Suspicious behavior is flagged in the `suspicious_flags` response field, which c
 + autofill_used
 
 By default, user interaction is analyzed on the whole page. If you want to target specific input fields or forms for behavior analysis, you can customize it using the `behavioralDataCollection` init configuration option:
-```
+```ts
 // On load
 seon.init({
   behavioralDataCollection: {
@@ -92,7 +121,7 @@ The targeted elements MUST exist at the time of the `init` call. Elements that m
 
 To disable behavioral data collection by the SDK altogether, you must specify an empty string for the `targets` option:
 
-```
+```ts
 // Disabling behavioral analysis
 seon.init({
   behavioralDataCollection: {
