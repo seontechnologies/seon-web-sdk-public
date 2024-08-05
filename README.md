@@ -165,7 +165,7 @@ Default: `*.seondnsresolve.com`
 
 + #### `seon.getBase64Session()` has been renamed to `seon.getSession()`
 
-+ #### For additional details on the changes of the integration and a comparison to the v5 open the [LINK NEEDED v5 to v6 migration guide]()
++ #### For additional details on the changes of the integration and a comparison to the v5 open the [Migration guide](https://docs.seon.io/api-reference/migration-guides#js-sdk-v5-to-v6-guide)
 
 ### New features and improvements
 + Behavioral Biometrics features
