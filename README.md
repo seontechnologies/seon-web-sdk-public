@@ -156,6 +156,11 @@ Default: `*.seondnsresolve.com`
 
 
 # Changelog
+## 6.1.0
++ Improved Multilogin detection, now detects latest X variant.
++ Implemented touch interaction based behavioral flags: `suspicious_touch_movement`, `suspicious_touch_speed`.
++ Bug fixes.
+
 ## 6.0.0
 ### Important Integration changes
 
