@@ -167,6 +167,12 @@ SEON JavaScript library collects device information and prepares an encrypted pa
 
 # Changelog
 
+## 6.2.1
+
+- Added cookie hash fallback logic for backward compatibility with v5
+- Updated user agent spoofing detection
+- Bug fixes
+
 ## 6.2.0
 
 - Added new configuration option for `getSession`: `consentId`
