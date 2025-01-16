@@ -167,16 +167,26 @@ SEON JavaScript library collects device information and prepares an encrypted pa
 
 # Changelog
 
+## 6.4.0
+
+- Added more geolocation error handling options.
+- Improved behavioral data collection.
+
+## 6.3.0
+
+- Canvas noise detection update.
+- User agent spoofing, incognito detection bug fixes.
+
 ## 6.2.1
 
-- Added cookie hash fallback logic for backward compatibility with v5
-- Updated user agent spoofing detection
-- Bug fixes
+- Added cookie hash fallback logic for backward compatibility with v5.
+- Updated user agent spoofing detection.
+- Bug fixes.
 
 ## 6.2.0
 
-- Added new configuration option for `getSession`: `consentId`
-- Fixed a validation issue with `behavioralDataCollection` init option
+- Added new configuration option for `getSession`: `consentId`.
+- Fixed a validation issue with `behavioralDataCollection` init option.
 
 ## 6.1.0
 
