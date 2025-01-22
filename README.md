@@ -167,6 +167,10 @@ SEON JavaScript library collects device information and prepares an encrypted pa
 
 # Changelog
 
+## 6.4.1
+- Extended device datapoints for more precise detection
+- Fix SDK session generation issue
+
 ## 6.4.0
 
 - Added more geolocation error handling options.
