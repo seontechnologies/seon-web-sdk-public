@@ -168,6 +168,14 @@ SEON JavaScript library collects device information and prepares an encrypted pa
 
 # Changelog
 
+## 6.5.1
+
+- Fixed an issue that could cause the SDK to throw an error on some rare cases
+
+## 6.5.0
+
+- Introduced `true_device_id` response field
+
 ## 6.4.1
 
 - Extended device datapoints for more precise detection
