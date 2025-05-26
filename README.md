@@ -169,6 +169,11 @@ SEON JavaScript library collects device information and prepares an encrypted pa
 
 # Changelog
 
+## 6.7.0
+
+- Improve Safari Private mode detection for newer versions of the browser
+- Fix the detection of the latest Xlogin fraud browser
+
 ## 6.6.0
 
 - Fixed an issue where `cookie_enabled` could be `true` while the `cookie_hash` was `null`
