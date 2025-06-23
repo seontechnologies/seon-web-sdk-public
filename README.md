@@ -28,7 +28,7 @@ All the device intelligence signals will be available in the Fraud API response,
 
 You can use the following script source URLs (`[source_url]`):
 
-- https://cdn.seondf.com/js/v6/agent.umd.js
+- https://cdn.dfsdk.com/js/v6/agent.umd.js
 - https://cdn.deviceinf.com/js/v6/agent.umd.js
 - https://cdn.seonintelligence.com/js/v6/agent.umd.js
 
@@ -163,11 +163,16 @@ SEON JavaScript library collects device information and prepares an encrypted pa
 - If you use CSP (Content Security Policy) headers on your site, you must allow the following domains in `connect-src` directive for full functionality based on your host configuration.
   Default: `*.seondnsresolve.com`
   - Alternatives:
-    - seondf.com: `*.seondfresolver.com`
+    - dfsdk.com: `*.seondfresolver.com`
     - deviceinf.com: `*.deviceinfresolver.com`
     - seonintelligence.com: `*.seonintelligence.com`
 
 # Changelog
+
+## 6.8.0
+
+- Performance improvements for low-end / older devices
+- Fix Internet Explorer private mode detection
 
 ## 6.7.0
 
