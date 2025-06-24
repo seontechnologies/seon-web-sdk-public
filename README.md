@@ -1,5 +1,3 @@
-
-
 # Overview
 
 You can integrate our device fingerprinting module directly into a website application, by using our JavaScript agent. Please use our CDN hosted script to ensure you always load the latest available version.
@@ -15,6 +13,8 @@ You can integrate our device fingerprinting module directly into a website appli
 4. Send the returned session payload string to your backend and add to the `session` property in your Fraud API request. The Fraud API call should be still executed if the `session` is missing, due to a non-executed JS snippet. Tip: Add timeout to JS and utilize Fraud API call after.
 
 All the device intelligence signals will be available in the Fraud API response, and accessible on the Admin Panel of the Transactions Details page.
+
+#### Example Integration
 
 ```html
 <html>
