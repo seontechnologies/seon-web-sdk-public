@@ -4,7 +4,7 @@ You can integrate our device fingerprinting module directly into a website appli
 
 ## Integration
 
-[Examples on stackblitz](https://stackblitz.com/@norbert.szilagyi/collections/seon-web-sdk-v6)
+Working examples on [stackblitz](https://stackblitz.com/@norbert.szilagyi/collections/seon-web-sdk-v6) for React, Angular, Nextjs, CDN, NPM integratons.
 
 1. Include the JavaScript Agent for example inside the <head> tags of your website or web app. You can also lazy-load it or execute it upon specific actions (e.g. clicking on Login, Payment, and Registration buttons, before calling the API). In this case, you must ensure that the module has been loaded successfully before invoking its methods.
 2. Call the `seon.init()`
