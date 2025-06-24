@@ -1,8 +1,12 @@
+
+
 # Overview
 
 You can integrate our device fingerprinting module directly into a website application, by using our JavaScript agent. Please use our CDN hosted script to ensure you always load the latest available version.
 
 ## Integration
+
+[Examples on stackblitz](https://stackblitz.com/@norbert.szilagyi/collections/seon-web-sdk-v6)
 
 1. Include the JavaScript Agent for example inside the <head> tags of your website or web app. You can also lazy-load it or execute it upon specific actions (e.g. clicking on Login, Payment, and Registration buttons, before calling the API). In this case, you must ensure that the module has been loaded successfully before invoking its methods.
 2. Call the `seon.init()`
@@ -11,8 +15,6 @@ You can integrate our device fingerprinting module directly into a website appli
 4. Send the returned session payload string to your backend and add to the `session` property in your Fraud API request. The Fraud API call should be still executed if the `session` is missing, due to a non-executed JS snippet. Tip: Add timeout to JS and utilize Fraud API call after.
 
 All the device intelligence signals will be available in the Fraud API response, and accessible on the Admin Panel of the Transactions Details page.
-
-#### Example Integration
 
 ```html
 <html>
