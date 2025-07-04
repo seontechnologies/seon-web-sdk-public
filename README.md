@@ -4,7 +4,7 @@ You can integrate our device fingerprinting module directly into a website appli
 
 ## Integration
 
-Working examples on [stackblitz](https://stackblitz.com/@dfseon/collections/seon-web-sdk-v6-demos) for React, Angular, Nextjs, CDN, NPM integratons.
+Working examples on [stackblitz](https://stackblitz.com/@dfseon/collections/seon-web-sdk-v6-demos) for React, Angular, Nextjs, CDN, NPM integrations.
 
 1. Include the JavaScript Agent for example inside the <head> tags of your website or web app. You can also lazy-load it or execute it upon specific actions (e.g. clicking on Login, Payment, and Registration buttons, before calling the API). In this case, you must ensure that the module has been loaded successfully before invoking its methods.
 2. Call the `seon.init()`
@@ -61,7 +61,7 @@ To configure the JavaScript module, you need to create a config object and call 
 | ----------------------------------------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | behavioralDataCollection                  |                             | Settings for the behavioral biometrics data collection                                                                                                                                                  |                                                                                     | _Details below_                                                                                                                                                                                                                  |
 |                                           | targets                     | QuerySelector string that selects the targets for which the behavior biometrics should be enabled                                                                                                       | `undefined`                                                                         | If left undefined, it will track behavior on the whole page. To disable this feature, specify an empty string                                                                                                                    |
-|                                           | formFilloutDurationTargetId | Selects the form by its element ID to measure the fillout time. Only the first matching element is considered                                                                                           | `undefined`                                                                         | If left undefined, this datapoint won't be available                                                                                                                                                                             |
+|                                           | formFilloutDurationTargetId | Selects the form by its element ID to measure the fill out time. Only the first matching element is considered                                                                                           | `undefined`                                                                         | If left undefined, this datapoint won't be available                                                                                                                                                                             |
 | dnsResolverDomain                         |                             | Other potential values: `seondfresolver.com`, `getdeviceinfresolver.com`, `seonintelligenceresolver.com`                                                                                                | _Can potentially change with minor versions!_ Current default: `seondnsresolve.com` | Only set explicitly if potential changes are undesirable for you, please note that if your site uses CSP headers, then you must set a `connect-src` directive to allow requests to this domain and all subdomains                |
 | fieldTimeoutMs                            |                             | Global timeout in milliseconds                                                                                                                                                                          | `5000`                                                                              | Rely on this option, rather than wrapping the 'getSession()' call in a timeout, because this way a partial result is still generated. Recommended minimum is 2000                                                                |
 | geolocation                               |                             | Geolocation configuration object                                                                                                                                                                        | _Won't be collected by default_                                                     | _Details below_                                                                                                                                                                                                                  |
@@ -118,7 +118,7 @@ const session = await seon.getSession(config);
 
 ## Behavioral features
 
-Calling the `init()` method will enable behavioral analysis. The user behavior collection is started on the `init()` call and ends when the `getSession()` is called (behavioral data will be automatically included in the generated session string). Thus the recommended integration pattern is calling `init()` on the form load, and calling `getSession()` on form submit to analyze user behavior during a form fillout.
+Calling the `init()` method will enable behavioral analysis. The user behavior collection is started on the `init()` call and ends when the `getSession()` is called (behavioral data will be automatically included in the generated session string). Thus the recommended integration pattern is calling `init()` on the form load, and calling `getSession()` on form submit to analyze user behavior during a form fill out.
 Suspicious behavior is flagged in the `suspicious_flags` response field, which can contain the following values:
 
 - suspicious_keypress_characteristics
@@ -150,7 +150,7 @@ To disable behavioral data collection by the SDK altogether, you must specify an
 // Disabling behavioral analysis
 seon.init({
   behavioralDataCollection: {
-    targets: "", // pass an emtpy string for targets
+    targets: "", // pass an empty string for targets
   },
 });
 ```
