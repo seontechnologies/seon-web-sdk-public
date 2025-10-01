@@ -84,6 +84,7 @@ To configure the JavaScript module, you need to create a config object and call 
 | experimentalHardwareAccelerationDetection |                             | Enable experimental feature to detect hardware acceleration. It will increase the generated session size by about 10%.                                                                                                                                         | `false`                                                                             | Available since 6.6.0                                                                                                                                                                                                            |
 | customCookieEndpoint                      |                             | Enable querying a custom cookie. This endpoint should be hosted directly (without a CNAME) on the same origin and should return the cookie value. This will improve true_device_id lifetime by utilizing first-party cookies                                   | `""`                                                                                | Available since 6.9.0                                                                                                                                                                                                            |
 | performanceMode                           |                             | Decreases fingerprinting time especially on lower-end devices. Enabling this mode will reduce the accuracy of some spoofing detections, but will improve fingerprinting speed. Switching this flag on is known to cause a change in the 'spoofing_hash' value. | `false`                                                                             | Available since 6.9.0                                                                                                                                                                                                            |
+| disableWorkerSources                      |                             | Disable data collection from worker sources. This is only recommended if you can not allow 'worker-src: blob:' in your CSP. Otherwise if the worker sources are disabled the fingerprint and spoofing protection will be less accurate.                        | `false`                                                                             | Available since 6.10.0                                                                                                                                                                                                           |
 
 > [!IMPORTANT]
 > The `fieldTimeoutMs` is the global timeout for the fingerprinting, however this is not a hard limit, setting this value to a very low value (e.g. 100 ms) will probably still result in response times greater than the defined value because some operations must always complete for a valid result.
@@ -161,6 +162,14 @@ seon.init({
 
 SEON JavaScript library collects device information and prepares an encrypted payload to use in Fraud API. If the information on client side is not readable, we’ll reveal in the Fraud API response and on the Admin Panel. Some fields can be `null`, if the actual browser does not support or return data for that specific data point. In every other case, data types are preserved.
 
+## Content-Security-Policy (CSP)
+
+If your website uses Content Security Policy (CSP) headers, ensure that the following sources are allowed for full functionality, depending on your host configuration:
+
+- `connect-src *.seondnsresolve.com` (depending on the resolver domain used)
+- `worker-src blob:` (required for running fields in webworkers)
+- `img-src data: http://127.0.0.1:*` (`data:` is required, `http://127.0.0.1:*` only needed if silentMode is disabled)
+
 ## Common issues
 
 - The `session` is provided in the Fraud API request, but the `device_details` is null in the response and there is no device information on the Transaction details page. This means the encrypted payload is corrupted. Please look into your integration and check again.
@@ -172,6 +181,11 @@ SEON JavaScript library collects device information and prepares an encrypted pa
     - seonintelligence.com: `*.seonintelligence.com`
 
 # Changelog
+
+## 6.10.0
+
+- Fix slow fingerprinting when the `worker-src: blob:` CSP directive is not allowed on the page
+- Introduce `disableWorkerSources` configuration option. This is only recommended if you can not allow `worker-src: blob:` in your CSP. Otherwise if the worker sources are disabled the fingerprint and spoofing protection will be less accurate.
 
 ## 6.9.0
 
