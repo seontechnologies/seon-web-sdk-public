@@ -182,6 +182,10 @@ If your website uses Content Security Policy (CSP) headers, ensure that the foll
 
 # Changelog
 
+## 6.10.1
+
+- Performance improvements
+
 ## 6.10.0
 
 - Fix slow fingerprinting when the `worker-src: blob:` CSP directive is not allowed on the page
