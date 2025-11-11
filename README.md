@@ -182,6 +182,10 @@ If your website uses Content Security Policy (CSP) headers, ensure that the foll
 
 # Changelog
 
+## 6.10.2
+
+- Performance improvements, especially for performanceMode enabled
+
 ## 6.10.1
 
 - Performance improvements
