@@ -181,6 +181,14 @@ If your website uses Content Security Policy (CSP) headers, ensure that the foll
     - seonintelligence.com: `*.seonintelligence.com`
 
 # Changelog
+## 6.10.4
+
+- Performance improvement when `performanceMode` is enabled
+
+## 6.10.3
+
+- Fix cases where spoofing flags would falsely trigger on specific sites
+- Fix cases where `potential_fraud_browser` would falsely trigger
 
 ## 6.10.2
 
