@@ -181,6 +181,11 @@ If your website uses Content Security Policy (CSP) headers, ensure that the foll
     - seonintelligence.com: `*.seonintelligence.com`
 
 # Changelog
+## 6.10.5
+
+- Fix devTools detection on Chromium browsers
+- Fix rare errors during webRTC initialization
+
 ## 6.10.4
 
 - Performance improvement when `performanceMode` is enabled
