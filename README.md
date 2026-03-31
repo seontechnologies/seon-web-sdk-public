@@ -181,6 +181,19 @@ If your website uses Content Security Policy (CSP) headers, ensure that the foll
     - seonintelligence.com: `*.seonintelligence.com`
 
 # Changelog
+
+## 6.10.8
+
+- Fix spoofing and bot detection false positives when third-party optimizers aggressively strip out code
+
+## 6.10.7
+
+- Fix warnings when strict CSP is used
+
+## 6.10.6
+
+- Improve webview detection
+
 ## 6.10.5
 
 - Fix devTools detection on Chromium browsers
