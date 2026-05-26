@@ -182,6 +182,10 @@ If your website uses Content Security Policy (CSP) headers, ensure that the foll
 
 # Changelog
 
+## 6.10.10
+
+- Stabilize browser hash between sessions
+
 ## 6.10.9
 
 - Introduce DuckDuckGo extension/browser detection
