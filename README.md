@@ -182,6 +182,10 @@ If your website uses Content Security Policy (CSP) headers, ensure that the foll
 
 # Changelog
 
+## 6.10.9
+
+- Introduce DuckDuckGo extension/browser detection
+
 ## 6.10.8
 
 - Fix spoofing and bot detection false positives when third-party optimizers aggressively strip out code
