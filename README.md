@@ -182,6 +182,16 @@ If your website uses Content Security Policy (CSP) headers, ensure that the foll
 
 # Changelog
 
+## 6.11.1
+
+ - Expand remote access tool detection to cover HopToDesk and DeskIn
+ - Improve potiential_remote_interaction detection on Firefox
+
+## 6.11.0
+
+ > IMPORTANT: minimum supported browser versions are now Chrome 67+, Safari 14+, and Firefox 68+. Earlier versions are no longer supported.
+ - Reduce SDK bundle size through build optimizations
+
 ## 6.10.11
 - Mitigate tab crashes on Windows 11 Chromium-based browsers (e.g. Chrome 149.0.7827.54)
 - Improve Chromium-based browser Private mode detection
