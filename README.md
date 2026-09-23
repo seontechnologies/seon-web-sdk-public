@@ -192,6 +192,15 @@ If your website uses Content Security Policy (CSP) headers, ensure that the foll
 
 # Changelog
 
+## 6.12.2
+
+- Fix managed configuration handling on Android devices
+
+## 6.12.1
+
+- Improve remote access tool detection
+- Improve spoofing detection
+
 ## 6.12.0
 
  - Add config option to start port scanning on init()
