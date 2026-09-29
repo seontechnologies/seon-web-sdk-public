@@ -194,7 +194,7 @@ If your website uses Content Security Policy (CSP) headers, ensure that the foll
 
 ## 6.12.3
 
-- Fix false bot and automation detection on Opera 136
+- Improve bot and automation detection on Opera
 
 ## 6.12.2
 
