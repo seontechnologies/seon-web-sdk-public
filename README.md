@@ -192,6 +192,10 @@ If your website uses Content Security Policy (CSP) headers, ensure that the foll
 
 # Changelog
 
+## 6.12.3
+
+- Improve bot and automation detection on Opera
+
 ## 6.12.2
 
 - Fix managed configuration handling on Android devices
