@@ -192,6 +192,20 @@ If your website uses Content Security Policy (CSP) headers, ensure that the foll
 
 # Changelog
 
+## 6.12.6
+
+- Improve agent detection
+- Fix errors thrown on synthetic touch events
+
+## 6.12.5
+
+- Improve agent detection
+
+## 6.12.4
+
+- Extend behavioral signals
+- Improve agent detection
+
 ## 6.12.3
 
 - Improve bot and automation detection on Opera
