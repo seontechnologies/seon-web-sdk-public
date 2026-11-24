@@ -200,6 +200,7 @@ If your website uses Content Security Policy (CSP) headers, ensure that the foll
 ## 6.12.7
 
 - Stability and security improvements
+- Improve agent detection
 
 ## 6.12.6
 
