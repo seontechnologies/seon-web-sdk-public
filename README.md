@@ -192,6 +192,15 @@ If your website uses Content Security Policy (CSP) headers, ensure that the foll
 
 # Changelog
 
+## 6.13.0
+
+- Add the `bot_classification` field to the response
+- Fix Content Security Policy console error on Chrome
+
+## 6.12.7
+
+- Stability and security improvements
+
 ## 6.12.6
 
 - Improve agent detection
